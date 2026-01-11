@@ -1,0 +1,14 @@
+# import libs and modules
+import requests
+import os
+import pandas
+from azure.storage.blob import BlobServiceClient
+
+
+connection_string = os.getenv(“connection_string")
+
+
+blob_connection = BlobServiceClient.from_connection_string(connection_string)
+
+
+print(blob_connection)
