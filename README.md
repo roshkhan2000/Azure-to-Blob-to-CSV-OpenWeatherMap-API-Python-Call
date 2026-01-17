@@ -16,7 +16,7 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
 - [license](#license)
 
 
-## ✨ How the script works
+## How the script works
 
 **1. Load environment variables from .env**
   - Loads the Azure Storage connection string and OpenWeatherMap API key from a .env file using python-dotenv, keeping credentials secure and configurable.
