@@ -1,34 +1,122 @@
-# import libraries
+# import libraries and modules
 import os
 import json
 import requests
+import pandas as pd
 from dotenv import load_dotenv
 from pathlib import Path
 from azure.storage.blob import BlobServiceClient
+from datetime import datetime
 
-# load environment variables from .env
-env_path = Path(r"G:\My Drive\03 Personal Projects\Python\Azure Storage Account Key.env")
-load_dotenv(dotenv_path=env_path)
+# define file path for where the .env file that holds Azure connection string and API key is located
+dot_env_file_path = Path(r"*INSET FOLDER PATH FOR .env FILE*")
+load_dotenv(dotenv_path=dot_env_file_path )
 
-# get connection string from environment
-connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-if connection_string is None:
-    raise ValueError("Connection string not found. Check your .env file.")
+# get Azure connection string and API keyfrom .env
+# raise error if nothing is found
+azure_connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+if azure_connection_string is None:
+    raise ValueError("Azure connection string not found -> check .env file")
+else:
+    print("Azure connection string found")
 
-# create BlobServiceClient
-blob_service_client = BlobServiceClient.from_connection_string(connection_string)
+api_key = os.getenv("API_KEY")
+if azure_connection_string is None:
+    raise ValueError("API key not found -> check .env file")
+else:
+    print("API key found")
 
-# check all available containers
-containers = blob_service_client.list_containers()
-for container in containers:
-        print(container["name"])
+# authenticate and connect to the Azure
+blob_service_client = BlobServiceClient.from_connection_string(azure_connection_string)
+print("Authenticated to Azure blob service client")
 
-# call OpenWeatherMap API
-api_key = "insert_api_key"
-api_url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&appid={api_key}"
-params = (
-      {
-            lat = 51.5080
-            long = -0.1281 
-            
-      })
+# check all available containers in Azure
+available_containers = blob_service_client.list_containers()
+for container in available_containers:
+        print("Container '" + container["name"] + "' found")
+
+# call OpenWeatherMap API, check and return status
+api_url = f"https://api.openweathermap.org/data/2.5/weather"
+params = {
+        "lat": 51.5080,
+        "lon": -0.1281,
+        "appid": api_key,
+        "units": "metric"
+    }
+
+api_response = requests.get(api_url, params=params)
+
+if api_response.status_code is not 200:
+    raise ValueError(f"API call failed: status {api_response.status_code}")
+else:
+    print(f"API call successful: status {api_response.status_code}")
+
+# convert response to JSON
+# convert the datetime in this object to a readable format
+# convert JSON python dict to a string so a container can read and store it
+api_json_object = api_response.json()
+api_json_object["current_time"] = datetime.now().isoformat()
+api_json_string = json.dumps(api_json_object, indent=2)
+
+# select the raw Azure container
+# choose a blob name
+# store data in to Azure
+raw_container = blob_service_client.get_container_client("open-weather-map-api-raw")
+blob_name_raw = "weather_london_raw.json"
+
+raw_container.upload_blob(
+      name=blob_name_raw,
+      data=api_json_string,
+      overwrite=True
+)
+
+print(f"Raw data uploaded to '{raw_container}' in '{blob_name_raw}'")
+
+# download the data we just stored in this blob back in to python so we can filter it
+# read all the blob content
+# convert bytes to string
+# convert string to Python dict
+download_raw_blob = raw_container.download_blob("weather_london_raw.json")
+raw_blob_bytes = download_raw_blob.readall()  
+raw_blob_string = raw_blob_bytes.decode("utf-8")  
+download_raw_data = json.loads(raw_blob_string)
+
+# filter this blob to a certain set of data
+json_filtered_data = {
+     "location": download_raw_data["name"],
+     "lat": download_raw_data["coord"]["lat"],
+     "lon": download_raw_data["coord"]["lon"],
+     "current_time": download_raw_data["current_time"][:-7].replace(":", "-"),
+     "temp": download_raw_data["main"]["temp"],
+     "weather_status": download_raw_data["weather"][0]["main"],
+     "weather_description": download_raw_data["weather"][0]["description"]
+}
+
+# convert JSON python dict to a string so a container can read and store it
+json_filtered_string = json.dumps(json_filtered_data, indent=2)
+
+# select the filtered Azure container
+# choose a blob name
+# store data in to Azure
+filtered_container = blob_service_client.get_container_client("open-weather-map-api-filtered")
+blob_name_filtered = "weather_london_filtered.json"
+
+filtered_container.upload_blob(
+      name=blob_name_filtered,
+      data=json_filtered_string,
+      overwrite=True
+)
+
+print(f"Filtered data uploaded to '{filtered_container}' in '{blob_name_filtered}'")
+
+# convert json filtered data to a dataframe
+# save dataframe as a csv
+dataframe = pd.DataFrame([json_filtered_data])
+
+csv_file_path = r"*INSET FOLDER PATH TO SAVE CSV*"
+csv_file_name = r"\weather_london_filtered.csv"
+csv_file_timestamp = json_filtered_data["current_time"]
+
+dataframe.to_csv(f"{csv_file_path}{csv_file_name}_{csv_file_timestamp}", index = False)
+
+print(f"Filtered data saved in '{csv_file_path}'")
