@@ -5,7 +5,6 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
 
 <img width="1397" height="685" alt="image" src="https://github.com/user-attachments/assets/4c252282-c1a7-4204-baf3-bbe8aef1f579" />
 
-
 ## ✨ How the script works
 
 **1. Load environment variables from .env**
@@ -42,6 +41,7 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
 **10. Configurable and reusable**
   - Sensitive credentials are stored in the .env file.
   - Paths and container names can be easily modified, allowing the pipeline to be reused for different locations or extended to other APIs.
+<br>
 
 ## ⚙️ Prerequisites
 
@@ -59,6 +59,7 @@ Before running the pipeline, make sure you have
       - from pathlib import Path
       - from azure.storage.blob import BlobServiceClient
       - from datetime import datetime
+<br>
 
 ## 🛠️ Setup
 
@@ -97,6 +98,7 @@ After running:
 - Raw JSON stored in open-weather-map-api-raw
 - Filtered JSON stored in open-weather-map-api-filtered
 - Filtered CSV saved locally in the specified folder
+<br>
 
 ## 💡 Notes
 
@@ -105,6 +107,7 @@ API returns metric (°C) by default; use units="imperial" for Fahrenheit
 CSV filenames are automatically timestamped and sanitized for Windows
 
 Extend the pipeline to multiple locations, additional API fields, or other APIs
+<br>
 
 ## 📜 License
 
