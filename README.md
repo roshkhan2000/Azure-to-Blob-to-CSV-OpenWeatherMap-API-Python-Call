@@ -5,6 +5,17 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
 
 <img width="1397" height="685" alt="image" src="https://github.com/user-attachments/assets/4c252282-c1a7-4204-baf3-bbe8aef1f579" />
 
+## 📑 Contents
+
+- [How the Script works](#how-the-script-works)
+- [Prerequisites](#prerequisites)
+- [Set up](#set-up)
+- [Example JSON](#example-json)
+- [Usage](#usage)
+- [Notes](#notes)
+- [license](#license)
+
+
 ## ✨ How the script works
 
 **1. Load environment variables from .env**
@@ -51,14 +62,14 @@ Before running the pipeline, make sure you have
       - open-weather-map-api-filtered
   - OpenWeatherMap API key
   - Python 3.12+ with packages installed:
-      - import os
-      - import json
-      - import requests
-      - import pandas as pd
-      - from dotenv import load_dotenv
-      - from pathlib import Path
-      - from azure.storage.blob import BlobServiceClient
-      - from datetime import datetime
+      - os
+      - json
+      - requests
+      - panda
+      - dotenv
+      - pathlib
+      - azure.storage.blob 
+      - datetime
 <br>
 
 ## 🛠️ Setup
