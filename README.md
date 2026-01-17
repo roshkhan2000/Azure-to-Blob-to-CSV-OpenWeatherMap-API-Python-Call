@@ -5,16 +5,16 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
 
 <img width="1397" height="685" alt="image" src="https://github.com/user-attachments/assets/4c252282-c1a7-4204-baf3-bbe8aef1f579" />
 
-## 📑 Contents
+## Contents
 
-- [How the Script works](#how-the-script-works)
+- [How the script works](#how-the-script-works)
 - [Prerequisites](#prerequisites)
 - [Set up](#set-up)
 - [Example JSON](#example-json)
 - [Usage](#usage)
 - [Notes](#notes)
-- [license](#license)
-
+- [License](#license)
+<br>
 
 ## How the script works
 
@@ -54,7 +54,7 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
   - Paths and container names can be easily modified, allowing the pipeline to be reused for different locations or extended to other APIs.
 <br>
 
-## ⚙️ Prerequisites
+## Prerequisites
 
 Before running the pipeline, make sure you have
   - An Azure Storage Account with these blob containers:
@@ -72,7 +72,7 @@ Before running the pipeline, make sure you have
       - datetime
 <br>
 
-## 🛠️ Setup
+## Setup
 
 Clone the repository (or copy my script)
 <br>
@@ -87,7 +87,7 @@ Update folder paths in the Python script:
 - csv_file_path = r"*INSERT FOLDER PATH TO SAVE CSV*"
 <br>
 
-## 📄 Example Filtered JSON
+## Example Filtered JSON
 {
   "location": "London",
   "lat": 51.508,
@@ -100,7 +100,7 @@ Update folder paths in the Python script:
 
 <br>
 
-## 🏃 Usage
+## Usage
 
 Run the script: python python_azure_api_call.py
 <br>
@@ -111,7 +111,7 @@ After running:
 - Filtered CSV saved locally in the specified folder
 <br>
 
-## 💡 Notes
+## Notes
 
 API returns metric (°C) by default; use units="imperial" for Fahrenheit
 
@@ -120,6 +120,6 @@ CSV filenames are automatically timestamped and sanitized for Windows
 Extend the pipeline to multiple locations, additional API fields, or other APIs
 <br>
 
-## 📜 License
+## License
 
 MIT License – feel free to reuse and modify for your projects
