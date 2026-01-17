@@ -1,6 +1,6 @@
 # 🌤️ Weather Data API Pipeline with Python & Azure Blob Storage 
 
-## 📝 Overview
+## Overview
 This Python-based pipeline fetches current weather data from the OpenWeatherMap API, processes it, and stores it as Blob Storage and CSV.
 
 <img width="1397" height="685" alt="image" src="https://github.com/user-attachments/assets/4c252282-c1a7-4204-baf3-bbe8aef1f579" />
