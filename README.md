@@ -86,12 +86,9 @@ Update folder paths in the Python script:
 
 ## Usage
 
-Run the script: python python_azure_api_call.py
-<br>
-
-After running:
-- Raw JSON stored in open-weather-map-api-raw
-- Filtered JSON stored in open-weather-map-api-filtered
+Run the script. After running:
+- Raw JSON stored as a 'open-weather-map-api-raw' Blob in a container
+- Filtered JSON stored as a 'open-weather-map-api-filtered' Blob in a container
 - Filtered CSV saved locally in the specified folder
 <br>
 
