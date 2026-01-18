@@ -10,7 +10,6 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
 - [How the script works](#how-the-script-works)
 - [Prerequisites](#prerequisites)
 - [Set up](#set-up)
-- [Example JSON](#example-json)
 - [Usage](#usage)
 - [Notes](#notes)
 - [License](#license)
@@ -37,19 +36,17 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
 
 **6. Download raw JSON back for filtering**
   - Reads the raw blob from Azure and converts it from bytes → string → Python dictionary to ensure filtering is done on stored data.
-
-**7. Filter important fields**
   - Extracts relevant data: location, latitude, longitude, temperature, weather status, description, and timestamp.
   - Converts the filtered dictionary to a JSON string for storage.
 
-**8. Upload filtered JSON to Azure Blob Storage**
+**7. Upload filtered JSON to Azure Blob Storage**
   - Uploads the filtered JSON string to the open-weather-map-api-filtered container, creating a clean dataset ready for analysis.
 
-**9. Convert filtered JSON to a CSV file locally**
+**8. Convert filtered JSON to a CSV file locally**
   - Converts filtered JSON to a pandas DataFrame.
   - Adds a timestamp to the filename and saves it locally for reporting or further processing.
 
-**10. Configurable and reusable**
+**9. Configurable and reusable**
   - Sensitive credentials are stored in the .env file.
   - Paths and container names can be easily modified, allowing the pipeline to be reused for different locations or extended to other APIs.
 <br>
@@ -57,7 +54,7 @@ This Python-based pipeline fetches current weather data from the OpenWeatherMap 
 ## Prerequisites
 
 Before running the pipeline, make sure you have
-  - An Azure Storage Account with these blob containers:
+  - An Azure Storage Account with two blob containers called:
       - open-weather-map-api-raw
       - open-weather-map-api-filtered
   - OpenWeatherMap API key
@@ -85,19 +82,6 @@ Create a .env file in your project folder with your Azure connection string and 
 Update folder paths in the Python script:
 - dot_env_file_path = Path(r"*INSERT FOLDER PATH FOR .env FILE*")
 - csv_file_path = r"*INSERT FOLDER PATH TO SAVE CSV*"
-<br>
-
-## Example Filtered JSON
-{
-  "location": "London",
-  "lat": 51.508,
-  "lon": -0.1281,
-  "current_time": "2026-01-17T12-50-30",
-  "temp": 5.5,
-  "weather_status": "Clouds",
-  "weather_description": "few clouds"
-}
-
 <br>
 
 ## Usage
