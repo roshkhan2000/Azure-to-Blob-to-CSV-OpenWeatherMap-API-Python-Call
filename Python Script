@@ -38,8 +38,8 @@ for container in available_containers:
 # call OpenWeatherMap API, check and return status
 api_url = f"https://api.openweathermap.org/data/2.5/weather"
 params = {
-        "lat": 51.5080,
-        "lon": -0.1281,
+        "lat": 51.5080,    # London's lat
+        "lon": -0.1281,    # London's lon
         "appid": api_key,
         "units": "metric"
     }
