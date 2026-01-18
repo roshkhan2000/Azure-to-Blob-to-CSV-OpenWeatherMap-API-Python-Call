@@ -80,7 +80,7 @@ Create a .env file in your project folder with your Azure connection string and 
 <br>
 
 Update folder paths in the Python script:
-- dot_env_file_path = Path(r"*INSERT FOLDER PATH FOR .env FILE*")
+- dot_env_file_path = Path(r"*INSERT FULL FILE PATH OF .env FILE*")
 - csv_file_path = r"*INSERT FOLDER PATH TO SAVE CSV*"
 <br>
 
