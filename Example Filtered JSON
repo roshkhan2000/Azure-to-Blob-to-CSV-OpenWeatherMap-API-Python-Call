@@ -1,0 +1,9 @@
+{
+  "location": "London",
+  "lat": 51.5072,
+  "lon": -0.1276,
+  "current_time": "2026-01-18T20-38-00",
+  "temp": 8.86,
+  "weather_status": "Clouds",
+  "weather_description": "overcast clouds"
+}
