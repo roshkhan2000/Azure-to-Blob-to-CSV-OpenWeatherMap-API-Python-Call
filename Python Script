@@ -9,7 +9,7 @@ from azure.storage.blob import BlobServiceClient
 from datetime import datetime
 
 # define file path for where the .env file that holds Azure connection string and API key is located
-dot_env_file_path = Path(r"*INSET FOLDER PATH FOR .env FILE*")
+dot_env_file_path = Path(r"*INSERT FULL FILE PATH OF .env FILE*")
 load_dotenv(dotenv_path=dot_env_file_path )
 
 # get Azure connection string and API keyfrom .env
@@ -113,10 +113,10 @@ print(f"Filtered data uploaded to '{filtered_container}' in '{blob_name_filtered
 # save dataframe as a csv
 dataframe = pd.DataFrame([json_filtered_data])
 
-csv_file_path = r"*INSET FOLDER PATH TO SAVE CSV*"
-csv_file_name = r"\weather_london_filtered.csv"
+csv_file_path = r"*INSERT FOLDER PATH TO SAVE CSV*"
+csv_file_name = r"\weather_london_filtered"
 csv_file_timestamp = json_filtered_data["current_time"]
 
-dataframe.to_csv(f"{csv_file_path}{csv_file_name}_{csv_file_timestamp}", index = False)
+dataframe.to_csv(f"{csv_file_path}{csv_file_name}_{csv_file_timestamp}.csv", index = False)
 
 print(f"Filtered data saved in '{csv_file_path}'")
